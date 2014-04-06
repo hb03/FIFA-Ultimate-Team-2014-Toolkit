@@ -61,5 +61,11 @@
         public const string SquadDetails = "squad/{0}";
 
         public const string ReList = "relist";
+
+        // add
+        public const string ConsumablesDetails = "club/consumables/{0}";
+
+        public const string ListResource = "item/resource";
+        // end add
     }
 }

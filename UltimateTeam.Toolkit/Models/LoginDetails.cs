@@ -4,11 +4,11 @@ namespace UltimateTeam.Toolkit.Models
 {
     public class LoginDetails
     {
-        public string Username { get; private set; }
+        public string Username { get; set; }
         
-        public string Password { get; private set; }
+        public string Password { get; set; }
         
-        public string SecretAnswer { get; private set; }
+        public string SecretAnswer { get; set; }
 
         public Platform Platform { get; set; }
 
@@ -21,6 +21,10 @@ namespace UltimateTeam.Toolkit.Models
             Password = password;
             SecretAnswer = secretAnswer;
             Platform = platform;
+        }
+
+        public LoginDetails()
+        {
         }
     }
 }

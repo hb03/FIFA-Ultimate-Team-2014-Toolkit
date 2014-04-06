@@ -1,4 +1,5 @@
 ﻿using System;
+using UltimateTeam.Toolkit.Extensions;
 
 namespace UltimateTeam.Toolkit.Parameters 
 {
@@ -33,7 +34,9 @@ namespace UltimateTeam.Toolkit.Parameters
             if (ChemistryStyle > 0)
                 uriString += "&playStyle=" + (ushort)ChemistryStyle;
 
-
+            if (ResourceId > 0)
+                uriString += "&maskedDefId=" + ResourceId.CalculateBaseId(); // previously was "&definitionId="
+            
             return uriString;
         }
 

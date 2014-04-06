@@ -199,5 +199,19 @@ namespace UltimateTeam.Toolkit
         {
             return _requestFactories.ReListRequestFactory().PerformRequestAsync();
         }
+
+        // add
+        public Task<SendResourceToTradePileResponse> SendResourceToTradePileAsync(long resourceId)
+        {
+            resourceId.ThrowIfNullArgument();
+
+            return _requestFactories.SendResourceToTradePileRequestFactory(resourceId).PerformRequestAsync();
+        }
+
+        public Task<ConsumablesDetailsResponse> GetConsumablesDetailsAsync(ConsumablesDetailsCategory consumablesDetailsCategory)
+        {
+            return _requestFactories.ConsumablesDetailsRequestFactory(consumablesDetailsCategory).PerformRequestAsync();
+        }
+        // end add
     }
 }

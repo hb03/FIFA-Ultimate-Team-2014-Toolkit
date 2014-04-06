@@ -71,6 +71,12 @@ namespace UltimateTeam.Toolkit.Factories
         
         private Func<IFutRequest<byte>> _reListRequestFactory;
 
+        // add
+        private Func<long, IFutRequest<SendResourceToTradePileResponse>> _sendResourceToTradePileRequestFactory;
+        
+        private Func<ConsumablesDetailsCategory, IFutRequest<ConsumablesDetailsResponse>> _consumablesDetailsRequestFactory;
+        // end add
+        
         public string PhishingToken
         {
             get { return _phishingToken; }
@@ -587,5 +593,49 @@ namespace UltimateTeam.Toolkit.Factories
                 _reListRequestFactory= value;
             }
         }
+
+        // add
+        public void setFutHome(){
+            _resources.FutHome = Resources.FutHomeXbox360;
+        }
+        
+        public Func<long, IFutRequest<SendResourceToTradePileResponse>> SendResourceToTradePileRequestFactory
+        {
+            get
+            {
+                return _sendResourceToTradePileRequestFactory ?? (_sendResourceToTradePileRequestFactory = resourceId => new SendResourceToTradePileRequest(resourceId)
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _sendResourceToTradePileRequestFactory = value;
+            }
+        }
+        
+        public Func<ConsumablesDetailsCategory, IFutRequest<ConsumablesDetailsResponse>> ConsumablesDetailsRequestFactory
+        {
+            get
+            {
+                return _consumablesDetailsRequestFactory ?? (_consumablesDetailsRequestFactory = consumablesDetailsCategory => new ConsumablesDetailsRequest(consumablesDetailsCategory)
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _consumablesDetailsRequestFactory = value;
+            }
+        }
+        // end add
     }
 }
