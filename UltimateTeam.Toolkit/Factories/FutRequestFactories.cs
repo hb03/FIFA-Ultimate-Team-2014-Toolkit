@@ -59,9 +59,9 @@ namespace UltimateTeam.Toolkit.Factories
 
         private Func<ushort, IFutRequest<SquadDetailsResponse>> _squadDetailsRequestFactory;
 
-        private Func<ItemData, IFutRequest<SendItemToTradePileResponse>> _sendItemToTradePileRequestFactory;
+        private Func<IEnumerable<ItemData>, IFutRequest<SendItemToTradePileResponse>> _sendItemToTradePileRequestFactory;
 
-        private Func<ItemData, IFutRequest<SendItemToClubResponse>> _sendItemToClubRequestFactory;
+        private Func<IEnumerable<ItemData>, IFutRequest<SendItemToClubResponse>> _sendItemToClubRequestFactory;
 
         private Func<IEnumerable<long>, IFutRequest<QuickSellResponse>> _quickSellRequestFactory;
 
@@ -477,7 +477,7 @@ namespace UltimateTeam.Toolkit.Factories
             }
         }
 
-        public Func<ItemData, IFutRequest<SendItemToClubResponse>> SendItemToClubRequestFactory
+        public Func<IEnumerable<ItemData>, IFutRequest<SendItemToClubResponse>> SendItemToClubRequestFactory
         {
             get
             {
@@ -499,11 +499,11 @@ namespace UltimateTeam.Toolkit.Factories
 
 
 
-        public Func<ItemData, IFutRequest<SendItemToTradePileResponse>> SendItemToTradePileRequestFactory
+        public Func<IEnumerable<ItemData>, IFutRequest<SendItemToTradePileResponse>> SendItemToTradePileRequestFactory
         {
             get
             {
-                return _sendItemToTradePileRequestFactory ?? (_sendItemToTradePileRequestFactory = itemData => new SendItemToTradePileRequest(itemData)
+                return _sendItemToTradePileRequestFactory ?? (_sendItemToTradePileRequestFactory = itemDatas => new SendItemToTradePileRequest(itemDatas)
                 {
                     PhishingToken = PhishingToken,
                     SessionId = SessionId,

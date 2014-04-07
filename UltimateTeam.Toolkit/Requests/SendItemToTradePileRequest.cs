@@ -3,14 +3,16 @@ using System.Threading.Tasks;
 using UltimateTeam.Toolkit.Constants;
 using UltimateTeam.Toolkit.Models;
 using UltimateTeam.Toolkit.Extensions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UltimateTeam.Toolkit.Requests
 {
     internal class SendItemToTradePileRequest : FutRequestBase, IFutRequest<SendItemToTradePileResponse>
     {
-        private readonly ItemData _itemData;
+        private readonly IEnumerable<ItemData> _itemData;
 
-        public SendItemToTradePileRequest(ItemData itemData)
+        public SendItemToTradePileRequest(IEnumerable<ItemData> itemData)
         {
             itemData.ThrowIfNullArgument();
             _itemData = itemData;
@@ -20,7 +22,14 @@ namespace UltimateTeam.Toolkit.Requests
         {
             AddMethodOverrideHeader(HttpMethod.Put);
             AddCommonHeaders();
-            var content = string.Format("{{\"itemData\":[{{\"id\":\"{0}\",\"pile\":\"trade\"}}]}}", _itemData.Id);
+            string content;
+            if (_itemData.Count() > 1)
+            {
+                var itemIds = string.Join("\",\"pile\":\"trade\"},{\"id\":\"", _itemData.Select(p => p.Id));
+                content = string.Format("{{\"itemData\":[{{\"id\":\"{0}\",\"pile\":\"trade\"}}]}}", itemIds);
+            } else {
+                content = string.Format("{{\"itemData\":[{{\"id\":\"{0}\",\"pile\":\"trade\"}}]}}", _itemData.First().Id);
+            }
             var tradepileResponseMessage = await HttpClient
                 .PostAsync(string.Format(Resources.FutHome + Resources.ListItem), new StringContent(content))
                 .ConfigureAwait(false);

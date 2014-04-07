@@ -153,10 +153,24 @@ namespace UltimateTeam.Toolkit
         {
             itemData.ThrowIfNullArgument();
 
+            return _requestFactories.SendItemToClubRequestFactory(new[] { itemData }).PerformRequestAsync();
+        }
+
+        public Task<SendItemToClubResponse> SendItemToClubAsync(IEnumerable<ItemData> itemData)
+        {
+            itemData.ThrowIfNullArgument();
+
             return _requestFactories.SendItemToClubRequestFactory(itemData).PerformRequestAsync();
         }
 
         public Task<SendItemToTradePileResponse> SendItemToTradePileAsync(ItemData itemData)
+        {
+            itemData.ThrowIfNullArgument();
+
+            return _requestFactories.SendItemToTradePileRequestFactory(new[] { itemData }).PerformRequestAsync();
+        }
+
+        public Task<SendItemToTradePileResponse> SendItemToTradePileAsync(IEnumerable<ItemData> itemData)
         {
             itemData.ThrowIfNullArgument();
 
@@ -212,6 +226,8 @@ namespace UltimateTeam.Toolkit
         {
             return _requestFactories.ConsumablesDetailsRequestFactory(consumablesDetailsCategory).PerformRequestAsync();
         }
+
+
         // end add
     }
 }
