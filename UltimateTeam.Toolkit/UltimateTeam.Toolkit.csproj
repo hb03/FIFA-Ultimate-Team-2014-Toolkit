@@ -137,6 +137,7 @@
     <Compile Include="Parameters\FitnessCards.cs" />
     <Compile Include="Parameters\League.cs" />
     <Compile Include="Parameters\Level.cs" />
+    <Compile Include="Parameters\LoginType.cs" />
     <Compile Include="Parameters\Nation.cs" />
     <Compile Include="Parameters\PlayerSearchParameters.cs" />
     <Compile Include="Parameters\Position.cs" />

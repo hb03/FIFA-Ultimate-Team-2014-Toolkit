@@ -10,12 +10,14 @@ using UltimateTeam.Toolkit.Exceptions;
 using UltimateTeam.Toolkit.Models;
 using UltimateTeam.Toolkit.Services;
 using UltimateTeam.Toolkit.Extensions;
+using UltimateTeam.Toolkit.Parameters;
 
 namespace UltimateTeam.Toolkit.Requests
 {
     internal class LoginRequest : FutRequestBase, IFutRequest<LoginResponse>
     {
         private readonly LoginDetails _loginDetails;
+        private readonly LoginType _loginType;
 
         private IHasher _hasher;
 
@@ -25,10 +27,11 @@ namespace UltimateTeam.Toolkit.Requests
             set { _hasher = value; }
         }
 
-        public LoginRequest(LoginDetails loginDetails)
+        public LoginRequest(LoginDetails loginDetails, LoginType loginType = LoginType.WebApp)
         {
             loginDetails.ThrowIfNullArgument();
             _loginDetails = loginDetails;
+            _loginType = loginType;
         }
 
         public void SetCookieContainer(CookieContainer cookieContainer)
@@ -41,7 +44,7 @@ namespace UltimateTeam.Toolkit.Requests
             try
             {
                 var mainPageResponseMessage = await GetMainPageAsync().ConfigureAwait(false);
-                await LoginAsync(_loginDetails, mainPageResponseMessage);
+                await LoginAsync(_loginDetails, _loginType, mainPageResponseMessage);
                 var nucleusId = await GetNucleusIdAsync();
                 var shards = await GetShardsAsync(nucleusId);
                 var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
@@ -143,7 +146,7 @@ namespace UltimateTeam.Toolkit.Requests
             return nucleusId;
         }
 
-        private async Task LoginAsync(LoginDetails loginDetails, HttpResponseMessage mainPageResponseMessage)
+        private async Task LoginAsync(LoginDetails loginDetails, LoginType loginType, HttpResponseMessage mainPageResponseMessage)
         {
             var loginResponseMessage = await HttpClient.PostAsync(mainPageResponseMessage.RequestMessage.RequestUri, new FormUrlEncodedContent(
                 new[]
