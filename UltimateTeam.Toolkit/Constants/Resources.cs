@@ -8,6 +8,8 @@
 
         public const string Home = "http://www.easports.com/uk/fifa/football-club/ultimate-team";
 
+        public const string HomeMobil = "https://accounts.ea.com/connect/auth?client_id=FIFA-MOBILE-COMPANION&response_type=code&display=mobile/login&scope=basic.identity+offline+signin&locale=de&prompt=login";
+
         public const string NucleusId = "http://www.easports.com/iframe/fut/?locale=en_GB&baseShowoffUrl=http%3A%2F%2Fwww.easports.com%2Fuk%2Ffifa%2Ffootball-club%2Fultimate-team%2Fshow-off&guest_app_uri=http%3A%2F%2Fwww.easports.com%2Fuk%2Ffifa%2Ffootball-club%2Fultimate-team";
 
         public const string Shards = "http://www.easports.com/iframe/fut/p/ut/shards?_={0}";

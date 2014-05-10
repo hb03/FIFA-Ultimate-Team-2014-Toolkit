@@ -44,14 +44,27 @@ namespace UltimateTeam.Toolkit.Requests
             try
             {
                 var mainPageResponseMessage = await GetMainPageAsync().ConfigureAwait(false);
-                await LoginAsync(_loginDetails, _loginType, mainPageResponseMessage);
-                var nucleusId = await GetNucleusIdAsync();
-                var shards = await GetShardsAsync(nucleusId);
-                var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
-                var sessionId = await GetSessionIdAsync(nucleusId, userAccounts, _loginDetails.Platform);
-                var phishingToken = await ValidateAsync(_loginDetails, sessionId);
+                await LoginAsync(_loginDetails, mainPageResponseMessage);
 
-                return new LoginResponse(nucleusId, shards, userAccounts, sessionId, phishingToken);
+                if (_loginType == LoginType.WebApp)
+                {
+                    var nucleusId = await GetNucleusIdAsync();
+                    var shards = await GetShardsAsync(nucleusId);
+                    var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
+                    var sessionId = await GetSessionIdAsync(nucleusId, userAccounts, _loginDetails.Platform);
+                    var phishingToken = await ValidateAsync(_loginDetails, sessionId);
+                    return new LoginResponse(nucleusId, shards, userAccounts, sessionId, phishingToken);
+                }
+                else if (_loginType == LoginType.iOS)
+                {
+                    var nucleusId = await GetNucleusIdAsync();
+                    var shards = await GetShardsAsync(nucleusId);
+                    var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
+                    var sessionId = await GetSessionIdAsync(nucleusId, userAccounts, _loginDetails.Platform);
+                    var phishingToken = await ValidateAsync(_loginDetails, sessionId);
+                    return new LoginResponse(nucleusId, shards, userAccounts, sessionId, phishingToken);
+                }
+                return null;
             }
             catch (Exception e)
             {
@@ -146,7 +159,7 @@ namespace UltimateTeam.Toolkit.Requests
             return nucleusId;
         }
 
-        private async Task LoginAsync(LoginDetails loginDetails, LoginType loginType, HttpResponseMessage mainPageResponseMessage)
+        private async Task LoginAsync(LoginDetails loginDetails, HttpResponseMessage mainPageResponseMessage)
         {
             var loginResponseMessage = await HttpClient.PostAsync(mainPageResponseMessage.RequestMessage.RequestUri, new FormUrlEncodedContent(
                 new[]
@@ -165,7 +178,21 @@ namespace UltimateTeam.Toolkit.Requests
         {
             AddUserAgent();
             AddAcceptEncodingHeader();
-            var mainPageResponseMessage = await HttpClient.GetAsync(Resources.Home);
+
+            string url = "";
+            if (_loginType == LoginType.WebApp)
+            {
+                url = Resources.Home;
+            }
+            else if (_loginType == LoginType.iOS)
+            {
+                url = Resources.HomeMobil;
+            }
+            else
+            {
+                url = Resources.Home;
+            }
+            var mainPageResponseMessage = await HttpClient.GetAsync(url);
             mainPageResponseMessage.EnsureSuccessStatusCode();
 
             return mainPageResponseMessage;

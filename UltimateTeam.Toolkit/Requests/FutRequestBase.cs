@@ -6,6 +6,7 @@ using UltimateTeam.Toolkit.Constants;
 using UltimateTeam.Toolkit.Exceptions;
 using UltimateTeam.Toolkit.Extensions;
 using UltimateTeam.Toolkit.Models;
+using UltimateTeam.Toolkit.Parameters;
 
 namespace UltimateTeam.Toolkit.Requests
 {
@@ -19,6 +20,7 @@ namespace UltimateTeam.Toolkit.Requests
 
         private IHttpClient _httpClient;
 
+        private LoginType _loginType;
         public string PhishingToken
         {
             set
