@@ -81,6 +81,7 @@ namespace UltimateTeam.Toolkit.Requests
             }
             var authResponseMessage = await HttpClient.PostAsync(Resources.Auth, new StringContent(
                 string.Format(@"{{ ""isReadOnly"": false, ""sku"": ""FUT14WEB"", ""clientVersion"": 1, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}",
+                // string.Format(@"{{ ""isReadOnly"": false, ""sku"": ""FUT14IOS"", ""clientVersion"": 8, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}",
                     nucleusId, persona.PersonaId, persona.PersonaName, GetNucleusPersonaPlatform(platform))));
             authResponseMessage.EnsureSuccessStatusCode();
             var sessionId = Regex.Match(await authResponseMessage.Content.ReadAsStringAsync(), "\"sid\":\"\\S+\"")

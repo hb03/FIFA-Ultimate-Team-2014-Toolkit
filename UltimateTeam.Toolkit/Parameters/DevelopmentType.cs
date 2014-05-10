@@ -10,7 +10,10 @@ namespace UltimateTeam.Toolkit.Parameters
 
         public const string Healing = "healing";
 
-      
+        public DevelopmentType()
+        {
+
+        }
 
         private DevelopmentType(string descripton, string value)
         {
