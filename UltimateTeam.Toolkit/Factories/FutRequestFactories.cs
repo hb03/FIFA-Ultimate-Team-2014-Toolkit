@@ -13,7 +13,7 @@ namespace UltimateTeam.Toolkit.Factories
     {
         private readonly CookieContainer _cookieContainer = new CookieContainer();
 
-        private readonly Resources _resources = new Resources();
+        public Resources _resources = new Resources();
 
         private string _phishingToken;
 
@@ -21,7 +21,7 @@ namespace UltimateTeam.Toolkit.Factories
 
         private IHttpClient _httpClient;
 
-        private Func<LoginDetails, LoginType, IFutRequest<LoginResponse>> _loginRequestFactory;
+        private Func<LoginDetails, IFutRequest<LoginResponse>> _loginRequestFactory;
 
         private Func<SearchParameters, IFutRequest<AuctionResponse>> _searchRequestFactory;
 
@@ -112,17 +112,17 @@ namespace UltimateTeam.Toolkit.Factories
             }
         }
 
-        public Func<LoginDetails, LoginType, IFutRequest<LoginResponse>> LoginRequestFactory
+        public Func<LoginDetails, IFutRequest<LoginResponse>> LoginRequestFactory
         {
             get
             {
-                return _loginRequestFactory ?? (_loginRequestFactory = (details, loginType) =>
+                return _loginRequestFactory ?? (_loginRequestFactory = (details) =>
                     {
                         if (details.Platform == Platform.Xbox360)
                         {
                             _resources.FutHome = Resources.FutHomeXbox360;
                         }
-                        var loginRequest = new LoginRequest(details, loginType) { HttpClient = HttpClient, Resources = _resources };
+                        var loginRequest = new LoginRequest(details) { HttpClient = HttpClient, Resources = _resources };
                         loginRequest.SetCookieContainer(_cookieContainer);
                         return loginRequest;
                     });

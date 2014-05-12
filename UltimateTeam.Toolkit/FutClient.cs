@@ -14,11 +14,11 @@ namespace UltimateTeam.Toolkit
 
         public FutRequestFactories RequestFactories { get { return _requestFactories; } }
 
-        public async Task<LoginResponse> LoginAsync(LoginDetails loginDetails, LoginType loginType = LoginType.WebApp)
+        public async Task<LoginResponse> LoginAsync(LoginDetails loginDetails)
         {
             loginDetails.ThrowIfNullArgument();
 
-            var loginRequest = _requestFactories.LoginRequestFactory(loginDetails, loginType);
+            var loginRequest = _requestFactories.LoginRequestFactory(loginDetails);
             var loginResponse = await loginRequest.PerformRequestAsync();
             RequestFactories.PhishingToken = loginResponse.PhishingToken;
             RequestFactories.SessionId = loginResponse.SessionId;

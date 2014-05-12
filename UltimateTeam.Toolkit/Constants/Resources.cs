@@ -1,6 +1,6 @@
 ﻿namespace UltimateTeam.Toolkit.Constants
 {
-    internal class Resources
+    public class Resources
     {
         public const string Validate = "http://www.easports.com/iframe/fut/p/ut/game/fifa14/phishing/validate";
 

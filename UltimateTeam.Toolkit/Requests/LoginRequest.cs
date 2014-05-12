@@ -17,7 +17,6 @@ namespace UltimateTeam.Toolkit.Requests
     internal class LoginRequest : FutRequestBase, IFutRequest<LoginResponse>
     {
         private readonly LoginDetails _loginDetails;
-        private readonly LoginType _loginType;
 
         private IHasher _hasher;
 
@@ -31,7 +30,6 @@ namespace UltimateTeam.Toolkit.Requests
         {
             loginDetails.ThrowIfNullArgument();
             _loginDetails = loginDetails;
-            _loginType = loginType;
         }
 
         public void SetCookieContainer(CookieContainer cookieContainer)
@@ -43,28 +41,14 @@ namespace UltimateTeam.Toolkit.Requests
         {
             try
             {
-                if (_loginType == LoginType.iOS)
-                {
-                    var mainPageResponseMessage = await GetMobileMainPageAsync().ConfigureAwait(false);
-                    await LoginAsync(_loginDetails, mainPageResponseMessage);
-                    var nucleusId = await GetNucleusIdAsync();
-                    var shards = await GetShardsAsync(nucleusId);
-                    var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
-                    var sessionId = await GetSessionIdAsync(nucleusId, userAccounts, _loginDetails.Platform);
-                    var phishingToken = await ValidateAsync(_loginDetails, sessionId);
-                    return new LoginResponse(nucleusId, shards, userAccounts, sessionId, phishingToken);
-                }
-                else
-                {
-                    var mainPageResponseMessage = await GetMainPageAsync().ConfigureAwait(false);
-                    await LoginAsync(_loginDetails, mainPageResponseMessage);
-                    var nucleusId = await GetNucleusIdAsync();
-                    var shards = await GetShardsAsync(nucleusId);
-                    var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
-                    var sessionId = await GetSessionIdAsync(nucleusId, userAccounts, _loginDetails.Platform);
-                    var phishingToken = await ValidateAsync(_loginDetails, sessionId);
-                    return new LoginResponse(nucleusId, shards, userAccounts, sessionId, phishingToken);
-                }
+                var mainPageResponseMessage = await GetMainPageAsync().ConfigureAwait(false);
+                await LoginAsync(_loginDetails, mainPageResponseMessage);
+                var nucleusId = await GetNucleusIdAsync();
+                var shards = await GetShardsAsync(nucleusId);
+                var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
+                var sessionId = await GetSessionIdAsync(nucleusId, userAccounts, _loginDetails.Platform);
+                var phishingToken = await ValidateAsync(_loginDetails, sessionId);
+                return new LoginResponse(nucleusId, shards, userAccounts, sessionId, phishingToken);
             }
             catch (Exception e)
             {
@@ -97,14 +81,7 @@ namespace UltimateTeam.Toolkit.Requests
             }
 
             string client = "";
-            if (_loginType == LoginType.iOS)
-            {
-                client = @"{{ ""isReadOnly"": false, ""sku"": ""FUT14IOS"", ""clientVersion"": 8, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}";
-            }
-            else
-            {
-                client = @"{{ ""isReadOnly"": false, ""sku"": ""FUT14WEB"", ""clientVersion"": 1, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}";
-            }
+            client = @"{{ ""isReadOnly"": false, ""sku"": ""FUT14WEB"", ""clientVersion"": 1, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}";
             var authResponseMessage = await HttpClient.PostAsync(Resources.Auth, new StringContent(
                 string.Format(client, nucleusId, persona.PersonaId, persona.PersonaName, GetNucleusPersonaPlatform(platform))));
             authResponseMessage.EnsureSuccessStatusCode();
@@ -187,16 +164,6 @@ namespace UltimateTeam.Toolkit.Requests
             AddUserAgent();
             AddAcceptEncodingHeader();
             var mainPageResponseMessage = await HttpClient.GetAsync(Resources.Home);
-            mainPageResponseMessage.EnsureSuccessStatusCode();
-
-            return mainPageResponseMessage;
-        }
-
-        private async Task<HttpResponseMessage> GetMobileMainPageAsync()
-        {
-            AddUserAgent();
-            AddAcceptEncodingHeader();
-            var mainPageResponseMessage = await HttpClient.GetAsync(Resources.HomeMobil);
             mainPageResponseMessage.EnsureSuccessStatusCode();
 
             return mainPageResponseMessage;
