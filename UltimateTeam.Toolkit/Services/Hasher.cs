@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace UltimateTeam.Toolkit.Services
 {
-    internal class Hasher : IHasher
+    public class Hasher : IHasher
     {
         private static readonly int[] R1Shifts = { 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22 };
         private static readonly int[] R2Shifts = { 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20 };
