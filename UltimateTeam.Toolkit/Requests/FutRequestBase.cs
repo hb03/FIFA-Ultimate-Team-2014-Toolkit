@@ -19,8 +19,6 @@ namespace UltimateTeam.Toolkit.Requests
         private string _sessionId;
 
         private IHttpClient _httpClient;
-
-        private LoginType _loginType;
         public string PhishingToken
         {
             set
