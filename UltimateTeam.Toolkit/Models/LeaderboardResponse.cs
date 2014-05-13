@@ -29,11 +29,11 @@ namespace UltimateTeam.Toolkit.Models
 
     public class Score
     {
-        public uint value { get; set; }
+        public long value { get; set; }
     }
 
     public class Tiebreak
     {
-        public uint value { get; set; }
+        public long value { get; set; }
     }
 }
