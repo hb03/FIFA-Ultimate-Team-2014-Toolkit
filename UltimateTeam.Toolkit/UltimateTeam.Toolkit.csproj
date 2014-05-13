@@ -101,6 +101,7 @@
     <Compile Include="Models\ItemData.cs" />
     <Compile Include="Models\ItemWrapper.cs" />
     <Compile Include="Models\Kicktaker.cs" />
+    <Compile Include="Models\LeaderboardResponse.cs" />
     <Compile Include="Models\ListAuctionResponse.cs" />
     <Compile Include="Models\Persona.cs" />
     <Compile Include="Models\PileSize.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="Requests\ConsumablesDetailsRequest.cs" />
     <Compile Include="Requests\ConsumablesRequest.cs" />
     <Compile Include="Requests\ClubItemRequest.cs" />
+    <Compile Include="Requests\LeaderboardRequest.cs" />
     <Compile Include="Requests\SendResourceToTradePileRequest.cs" />
     <Compile Include="Requests\SquadDetailsRequest.cs" />
     <Compile Include="Requests\SquadListRequest.cs" />

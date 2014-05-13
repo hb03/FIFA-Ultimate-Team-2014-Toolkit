@@ -8,7 +8,7 @@ namespace UltimateTeam.Toolkit.Models
 
         public Shards Shards { get; private set; }
         
-        public UserAccounts UserAccounts { get; private set; }
+        public UserAccounts UserAccounts { get; set; }
         
         public string SessionId { get; private set; }
 

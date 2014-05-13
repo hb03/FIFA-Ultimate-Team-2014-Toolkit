@@ -40,6 +40,8 @@
 
         public const string Credits = "user/credits";
 
+        public const string Leaderboard = "leaderboards/period/alltime/user/{0}";
+
         public const string Auctionhouse = "auctionhouse";
 
         public const string TradePile = "tradepile";

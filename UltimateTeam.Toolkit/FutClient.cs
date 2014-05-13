@@ -71,6 +71,11 @@ namespace UltimateTeam.Toolkit
             return _requestFactories.CreditsRequestFactory().PerformRequestAsync();
         }
 
+        public Task<LeaderboardResponse> GetLeaderboardAsync(long personaId)
+        {
+            return _requestFactories.LeaderboardRequestFactory(personaId).PerformRequestAsync();
+        }
+
         public Task<PileSizeResponse> GetPileSizeAsync()
         {
             return _requestFactories.PileSizeRequestFactory().PerformRequestAsync();

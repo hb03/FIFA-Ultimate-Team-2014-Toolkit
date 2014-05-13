@@ -39,6 +39,8 @@ namespace UltimateTeam.Toolkit.Factories
 
         private Func<IFutRequest<CreditsResponse>> _creditsRequestFactory;
 
+        private Func<long, IFutRequest<LeaderboardResponse>> _leaderboardRequestFactory;
+
         private Func<IFutRequest<AuctionResponse>> _tradePileRequestFactory;
 
         private Func<IFutRequest<WatchlistResponse>> _watchlistRequestFactory;
@@ -276,13 +278,33 @@ namespace UltimateTeam.Toolkit.Factories
                     PhishingToken = PhishingToken,
                     SessionId = SessionId,
                     HttpClient = HttpClient,
-                    Resources = _resources
+                    Resources = _resources,
+                    
                 });
             }
             set
             {
                 value.ThrowIfNullArgument();
                 _creditsRequestFactory = value;
+            }
+        }
+
+        public Func<long, IFutRequest<LeaderboardResponse>> LeaderboardRequestFactory
+        {
+            get
+            {
+                return _leaderboardRequestFactory ?? (_leaderboardRequestFactory = personaId => new LeaderboardRequest(personaId)
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _leaderboardRequestFactory = value;
             }
         }
 
