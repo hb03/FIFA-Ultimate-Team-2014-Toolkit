@@ -49,7 +49,6 @@ namespace UltimateTeam.Toolkit.Parameters
         public const uint ASMonaco = 69;
         public const uint ASNancy = 1823;
         public const uint ASSaintEtienne = 1819;
-        public const uint Academica = 1901;
         public const uint AstonVilla = 2;
         public const uint Atalanta = 39;
         public const uint AthleticClubdeBilbao = 448;
@@ -631,7 +630,6 @@ namespace UltimateTeam.Toolkit.Parameters
             yield return new Team("AS Nancy", ASNancy, League.Ligue1);
             yield return new Team("AS Saint-Etienne", ASSaintEtienne, League.Ligue1);
             yield return new Team("Ascoli", Ascoli, League.SerieB);
-            yield return new Team("Acadmica", Academica, League.LigaPortuguesa);
             yield return new Team("Aston Villa", AstonVilla, League.BarclaysPremierLeague);
             yield return new Team("Atalanta", Atalanta, League.SerieA);
             yield return new Team("Athletic Club de Bilbao", AthleticClubdeBilbao, League.LigaBbva);
@@ -1014,7 +1012,6 @@ namespace UltimateTeam.Toolkit.Parameters
             yield return new Team("Sao Paulo", SaoPaulo, League.LigadoBrasil);
             yield return new Team("Sassuolo", Sassuolo, League.SerieB);
             yield return new Team("SC Bastia", SCBastia, League.Ligue1);
-            yield return new Team("SC Beira-Mar", SCBeiraMar, League.LigaPortuguesa);
             yield return new Team("SC Braga", SCBraga, League.LigaPortuguesa);
             yield return new Team("SC Freiburg", SCFreiburg, League.Bundesliga);
             yield return new Team("SC Heerenveen", SCHeerenveen, League.Eredivisie);
