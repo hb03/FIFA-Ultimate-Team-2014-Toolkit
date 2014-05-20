@@ -4,6 +4,7 @@
     {
         iOS,
         WebApp,
-        Console
+        Console,
+        Android
     }
 }
