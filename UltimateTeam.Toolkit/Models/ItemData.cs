@@ -44,7 +44,7 @@ namespace UltimateTeam.Toolkit.Models
         public byte Morale { get; set; }
 
         public byte Owners { get; set; }
-
+        public uint Pile { get; set; }
         public ChemistryStyle PlayStyle { get; set; }
 
         public string PreferredPosition { get; set; }
