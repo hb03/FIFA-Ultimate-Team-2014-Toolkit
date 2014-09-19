@@ -154,6 +154,11 @@ namespace UltimateTeam.Toolkit
             return _requestFactories.SquadDetailsRequestFactory(squadId).PerformRequestAsync();
         }
 
+        public Task SetSquadDetailsAsync(ushort squadId)
+        {
+            return _requestFactories.SquadDetailsRequestFactory(squadId).PerformRequestAsync();
+        }
+
         public Task<SendItemToClubResponse> SendItemToClubAsync(ItemData itemData)
         {
             itemData.ThrowIfNullArgument();

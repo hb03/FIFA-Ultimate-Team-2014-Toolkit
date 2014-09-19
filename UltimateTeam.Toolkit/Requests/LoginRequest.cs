@@ -43,6 +43,7 @@ namespace UltimateTeam.Toolkit.Requests
             {
                 var mainPageResponseMessage = await GetMainPageAsync().ConfigureAwait(false);
                 await LoginAsync(_loginDetails, mainPageResponseMessage);
+
                 var nucleusId = await GetNucleusIdAsync();
                 var shards = await GetShardsAsync(nucleusId);
                 var userAccounts = await GetUserAccountsAsync(_loginDetails.Platform);
@@ -81,7 +82,7 @@ namespace UltimateTeam.Toolkit.Requests
             }
 
             string client = "";
-            client = @"{{ ""isReadOnly"": false, ""sku"": ""FUT14WEB"", ""clientVersion"": 1, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}";
+            client = @"{{ ""isReadOnly"": false, ""sku"": ""FUT15WEB"", ""clientVersion"": 1, ""nuc"": {0}, ""nucleusPersonaId"": {1}, ""nucleusPersonaDisplayName"": ""{2}"", ""nucleusPersonaPlatform"": ""{3}"", ""locale"": ""en-GB"", ""method"": ""authcode"", ""priorityLevel"":4, ""identification"": {{ ""authCode"": """" }} }}";
             var authResponseMessage = await HttpClient.PostAsync(Resources.Auth, new StringContent(
                 string.Format(client, nucleusId, persona.PersonaId, persona.PersonaName, GetNucleusPersonaPlatform(platform))));
             authResponseMessage.EnsureSuccessStatusCode();
@@ -110,12 +111,20 @@ namespace UltimateTeam.Toolkit.Requests
 
         private async Task<UserAccounts> GetUserAccountsAsync(Platform platform)
         {
-            HttpClient.RemoveRequestHeader(NonStandardHttpHeaders.Route);
-            var route = string.Format("https://utas.{0}fut.ea.com:443", platform == Platform.Xbox360 ? string.Empty : "s2.");
-            HttpClient.AddRequestHeader(NonStandardHttpHeaders.Route, route);
-            var accountInfoResponseMessage = await HttpClient.GetAsync(string.Format(Resources.AccountInfo, CreateTimestamp()));
-
-            return await Deserialize<UserAccounts>(accountInfoResponseMessage);
+            try
+            {
+                HttpClient.RemoveRequestHeader(NonStandardHttpHeaders.Route);
+                var route = string.Format("https://utas.{0}fut.ea.com:443", platform == Platform.Xbox360 ? string.Empty : "s2.");
+                HttpClient.AddRequestHeader(NonStandardHttpHeaders.Route, route);
+                var accountInfoResponseMessage = await HttpClient.GetAsync(string.Format(Resources.AccountInfo, CreateTimestamp()));
+                UserAccounts returnAccount = await Deserialize<UserAccounts>(accountInfoResponseMessage);
+                return returnAccount;
+            }
+            catch (Exception ex)
+            {
+                var fehler = ex.Message;
+            }
+            return null;
         }
 
         private async Task<Shards> GetShardsAsync(string nucleusId)

@@ -46,6 +46,7 @@ namespace UltimateTeam.Toolkit.Models
 
         public byte DivisionOnline { get; set; }
 
+        public uint assetId { get; set; }
         public uint BadgeId { get; set; }
 
         public Dictionary<string, long> SkuAccessList { get; set; }
