@@ -2,7 +2,7 @@
 {
     public class Resources
     {
-        public const string Validate = "http://www.easports.com/iframe/fut15/p/ut/game/fifa14/phishing/validate";
+        public const string Validate = "http://www.easports.com/iframe/fut15/p/ut/game/fifa15/phishing/validate";
 
         public const string Auth = "https://www.easports.com/iframe/fut15/p/ut/auth";
 
@@ -14,19 +14,19 @@
 
         public const string NucleusId = "https://www.easports.com/iframe/fut15/?baseShowoffUrl=https%3A%2F%2Fwww.easports.com%2Ffifa%2Fultimate-team%2Fweb-app%2Fshow-off&guest_app_uri=http%3A%2F%2Fwww.easports.com%2Ffifa%2Fultimate-team%2Fweb-app&locale=en_US";
 
-        public const string Shards = "http://www.easports.com/iframe/fut15/p/ut/shards?_={0}";
+        public const string Shards = "https://www.easports.com/iframe/fut15/p/ut/shards?_={0}";
 
-        public const string AccountInfo = "http://www.easports.com/iframe/fut15/p/ut/game/fifa14/user/accountinfo?_={0}";
+        public const string AccountInfo = "https://www.easports.com/iframe/fut15/p/ut/game/fifa15/user/accountinfo?_={0}";
 
-        public const string BaseShowoff = "http://www.easports.com/iframe/fut15/?baseShowoffUrl=http%3A%2F%2Fwww.easports.com%2Fuk%2Ffifa%2Ffootball-club%2Fultimate-team%2Fshow-off&guest_app_uri=http%3A%2F%2Fwww.easports.com%2Fuk%2Ffifa%2Ffootball-club%2Fultimate-team&locale=en_GB";
+        public const string BaseShowoff = "https://www.easports.com/iframe/fut15/?baseShowoffUrl=http%3A%2F%2Fwww.easports.com%2Fuk%2Ffifa%2Ffootball-club%2Fultimate-team%2Fshow-off&guest_app_uri=http%3A%2F%2Fwww.easports.com%2Fuk%2Ffifa%2Ffootball-club%2Fultimate-team&locale=en_GB";
 
-        public const string Item = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2014/fut/items/web/{0}.json";
+        public const string Item = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2015/fut/items/web/{0}.json";
 
-        public const string PlayerImage = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2014/fut/items/images/players/web/{0}.png";
+        public const string PlayerImage = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2015/fut/items/images/players/web/{0}.png";
 
-        public const string FlagsImage = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2014/fut/items/images/cardflagssmall/web/{0}.png";
+        public const string FlagsImage = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2015/fut/items/images/cardflagssmall/web/{0}.png";
 
-        public const string ClubImage = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2014/fut/items/images/clubbadges/web/s{0}.png";
+        public const string ClubImage = "http://cdn.content.easports.com/fifa/fltOnlineAssets/C74DDF38-0B11-49b0-B199-2E2A11D1CC13/2015/fut/items/images/clubbadges/web/s{0}.png";
         
         public string FutHome = "https://utas.s2.fut.ea.com/ut/game/fifa15/";
         
@@ -71,6 +71,9 @@
         public const string User = "user";
 
         public const string ActiveMessage = "activeMessage";
+
+        public const string CardPack = "store/purchaseGroup/cardpack?ppInfo=true";
+
         public const string DelActiveMessage = "activeMessage/{0}";
         // add
         public const string ConsumablesDetails = "club/consumables/{0}";

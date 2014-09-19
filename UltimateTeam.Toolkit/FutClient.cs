@@ -75,6 +75,12 @@ namespace UltimateTeam.Toolkit
         {
             return _requestFactories.ActiveMessageRequestFactory().PerformRequestAsync();
         }
+
+        public Task<CardPackResponse> GetCardPackAsync()
+        {
+            return _requestFactories.CardPackRequestFactory().PerformRequestAsync();
+        }
+
         public Task DelActiveMessageAsync(int id)
         {
             id.ThrowIfNullArgument();
@@ -124,6 +130,11 @@ namespace UltimateTeam.Toolkit
         public Task<PurchasedItemsResponse> GetPurchasedItemsAsync()
         {
             return _requestFactories.PurchasedItemsRequestFactory().PerformRequestAsync();
+        }
+
+        public Task<PurchasedItemsResponse> GetPurchasedItemAsync(PurchasedItem purchasedItem)
+        {
+            return _requestFactories.PurchasedItemRequestFactory(purchasedItem).PerformRequestAsync();
         }
 
         public Task<ListAuctionResponse> ListAuctionAsync(AuctionDetails auctionDetails)

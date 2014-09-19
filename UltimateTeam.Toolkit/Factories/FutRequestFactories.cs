@@ -40,7 +40,7 @@ namespace UltimateTeam.Toolkit.Factories
         private Func<IFutRequest<CreditsResponse>> _creditsRequestFactory;
         private Func<int, IFutRequest<byte>> _delActiveMessageRequestFactory;
         private Func<IFutRequest<ActiveMessageResponse>> _activeMessageRequestFactory;
-
+        private Func<IFutRequest<CardPackResponse>> _cardPackRequestFactory;
         private Func<string, string, IFutRequest<CreateClubResponse>> _createClubRequestFactory;
 
         private Func<long, IFutRequest<LeaderboardResponse>> _leaderboardRequestFactory;
@@ -53,7 +53,9 @@ namespace UltimateTeam.Toolkit.Factories
 
         private Func<IFutRequest<SquadListResponse>> _squadListRequestFactory;
 
-        private Func<IFutRequest<PurchasedItemsResponse>> _purchaseditemsRequestFactory;
+        private Func<IFutRequest<PurchasedItemsResponse>> _purchasedItemsRequestFactory;
+
+        private Func<PurchasedItem, IFutRequest<PurchasedItemsResponse>> _purchasedItemRequestFactory;
 
         private Func<AuctionDetails, IFutRequest<ListAuctionResponse>> _listAuctionRequestFactory;
 
@@ -333,6 +335,26 @@ namespace UltimateTeam.Toolkit.Factories
             }
         }
 
+        public Func<IFutRequest<CardPackResponse>> CardPackRequestFactory
+        {
+            get
+            {
+                return _cardPackRequestFactory ?? (_cardPackRequestFactory = () => new CardPackRequest
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources,
+
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _cardPackRequestFactory = value;
+            }
+        }
+
         public Func<string, string, IFutRequest<CreateClubResponse>> CreateClubRequestFactory
         {
             get
@@ -452,7 +474,7 @@ namespace UltimateTeam.Toolkit.Factories
         {
             get
             {
-                return _purchaseditemsRequestFactory ?? (_purchaseditemsRequestFactory = () => new PurchasedItemsRequest
+                return _purchasedItemsRequestFactory ?? (_purchasedItemsRequestFactory = () => new PurchasedItemsRequest
                 {
                     PhishingToken = PhishingToken,
                     SessionId = SessionId,
@@ -463,9 +485,29 @@ namespace UltimateTeam.Toolkit.Factories
             set
             {
                 value.ThrowIfNullArgument();
-                _purchaseditemsRequestFactory = value;
+                _purchasedItemsRequestFactory = value;
             }
         }
+
+        public Func<PurchasedItem, IFutRequest<PurchasedItemsResponse>> PurchasedItemRequestFactory
+        {
+            get
+            {
+                return _purchasedItemRequestFactory ?? (_purchasedItemRequestFactory = (purchasedItem) => new PurchasedItemRequest(purchasedItem)
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _purchasedItemRequestFactory = value;
+            }
+        }
+
 
         public Func<AuctionDetails, IFutRequest<ListAuctionResponse>> ListAuctionFactory
         {
