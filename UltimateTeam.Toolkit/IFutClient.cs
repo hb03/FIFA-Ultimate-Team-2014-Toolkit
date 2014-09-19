@@ -24,6 +24,8 @@ namespace UltimateTeam.Toolkit
 
         Task<CreditsResponse> GetCreditsAsync();
 
+        Task<ActiveMessageResponse> GetActiveMessageAsync();
+
         Task<PileSizeResponse> GetPileSizeAsync();
 
         Task<AuctionResponse> GetTradePileAsync();

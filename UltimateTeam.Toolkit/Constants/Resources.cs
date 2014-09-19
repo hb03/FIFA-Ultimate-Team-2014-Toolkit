@@ -6,6 +6,8 @@
 
         public const string Auth = "https://www.easports.com/iframe/fut15/p/ut/auth";
 
+        public const string AuthPersona = "https://utas.s2.fut.ea.com/ut/auth/persona";
+
         public const string Home = "https://www.easports.com/de/fifa/ultimate-team/web-app";
 
         public const string HomeMobil = "https://accounts.ea.com/connect/auth?client_id=FIFA-MOBILE-COMPANION&response_type=code&display=mobile/login&scope=basic.identity+offline+signin&locale=de&prompt=login";
@@ -66,6 +68,10 @@
 
         public const string ReList = "relist";
 
+        public const string User = "user";
+
+        public const string ActiveMessage = "activeMessage";
+        public const string DelActiveMessage = "activeMessage/{0}";
         // add
         public const string ConsumablesDetails = "club/consumables/{0}";
 

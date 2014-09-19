@@ -71,6 +71,21 @@ namespace UltimateTeam.Toolkit
             return _requestFactories.CreditsRequestFactory().PerformRequestAsync();
         }
 
+        public Task<ActiveMessageResponse> GetActiveMessageAsync()
+        {
+            return _requestFactories.ActiveMessageRequestFactory().PerformRequestAsync();
+        }
+        public Task DelActiveMessageAsync(int id)
+        {
+            id.ThrowIfNullArgument();
+
+            return _requestFactories.DelActiveMessageRequestFactory(id).PerformRequestAsync();
+        }
+        public Task<CreateClubResponse> CreateClubAsync(string clubName, string clubAbbr)
+        {
+            return _requestFactories.CreateClubRequestFactory(clubName, clubAbbr).PerformRequestAsync();
+        }
+
         public Task<LeaderboardResponse> GetLeaderboardAsync(long personaId)
         {
             return _requestFactories.LeaderboardRequestFactory(personaId).PerformRequestAsync();

@@ -38,6 +38,10 @@ namespace UltimateTeam.Toolkit.Factories
         private Func<IEnumerable<long>, IFutRequest<AuctionResponse>> _tradeStatusRequestFactory;
 
         private Func<IFutRequest<CreditsResponse>> _creditsRequestFactory;
+        private Func<int, IFutRequest<byte>> _delActiveMessageRequestFactory;
+        private Func<IFutRequest<ActiveMessageResponse>> _activeMessageRequestFactory;
+
+        private Func<string, string, IFutRequest<CreateClubResponse>> _createClubRequestFactory;
 
         private Func<long, IFutRequest<LeaderboardResponse>> _leaderboardRequestFactory;
 
@@ -286,6 +290,66 @@ namespace UltimateTeam.Toolkit.Factories
             {
                 value.ThrowIfNullArgument();
                 _creditsRequestFactory = value;
+            }
+        }
+
+        public Func<int, IFutRequest<byte>> DelActiveMessageRequestFactory
+        {
+            get
+            {
+                return _delActiveMessageRequestFactory ?? (_delActiveMessageRequestFactory = (id) => new DelActiveMessageRequest(id)
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources,
+
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _delActiveMessageRequestFactory = value;
+            }
+        }
+
+        public Func<IFutRequest<ActiveMessageResponse>> ActiveMessageRequestFactory
+        {
+            get
+            {
+                return _activeMessageRequestFactory ?? (_activeMessageRequestFactory = () => new ActiveMessageRequest
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources,
+
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _activeMessageRequestFactory = value;
+            }
+        }
+
+        public Func<string, string, IFutRequest<CreateClubResponse>> CreateClubRequestFactory
+        {
+            get
+            {
+                return _createClubRequestFactory ?? (_createClubRequestFactory = (clubName, clubAbbr) => new CreateClubRequest(clubName, clubAbbr)
+                {
+                    PhishingToken = PhishingToken,
+                    SessionId = SessionId,
+                    HttpClient = HttpClient,
+                    Resources = _resources,
+
+                });
+            }
+            set
+            {
+                value.ThrowIfNullArgument();
+                _createClubRequestFactory = value;
             }
         }
 

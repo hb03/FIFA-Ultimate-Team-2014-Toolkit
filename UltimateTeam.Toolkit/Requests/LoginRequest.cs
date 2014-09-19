@@ -90,7 +90,6 @@ namespace UltimateTeam.Toolkit.Requests
                 .Value
                 .Split(new[] { ':' })[1]
                 .Replace("\"", string.Empty);
-
             return sessionId;
         }
 
